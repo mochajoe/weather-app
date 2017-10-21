@@ -1,5 +1,4 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
-
 let city, country, latitude, longitude;
 
 fetch(`${weatherApi}ip`)
