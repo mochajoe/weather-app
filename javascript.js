@@ -24,8 +24,8 @@ fetch(`${weatherApi}ip`)
 			});
 	});
 
-kToF = Fahrenheit => {
-	return parseInt((Fahrenheit - 273.15) * 1.8 + 32) + "&#8457;";
+kToF = fahrenheitTemp => {
+	return parseInt((fahrenheitTemp - 273.15) * 1.8 + 32) + "&#8457;";
 };
 
 capitalizeEachWord = str => {
