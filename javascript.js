@@ -9,7 +9,6 @@ fetch(`${weatherApi}ip`)
 		country = data.country;
 		latitude = data.location.latitude;
 		longitude = data.location.longitude;
-		displayToDom("location", city);
 		fetch(`${weatherApi}weather/${latitude},${longitude}`)
 			.then(response => {
 				return response.json();
@@ -18,24 +17,26 @@ fetch(`${weatherApi}ip`)
 				kelvinTemp = data.main.temp;
 				condition = data.weather[0].description;
 				icon = data.weather[0].icon;
+				displayToDom("location", city);
 				displayToDom("temp", kToF(kelvinTemp));
 				displayToDom("condition", capitalizeEachWord(condition));
 				renderImageToDom("icon", icon);
+				addClickEvent("temp", kToF(kelvinTemp), kToC(kelvinTemp));
 			});
 	})
 	.catch(function(err) {
 		displayToDom(
-			"condition",
-			"Sorry it looks like there is an error, The Application was not able to retrieve the IP address, please notify ....."
+			"location",
+			`${err}. Sorry it looks like there is an error, The Application was not able to retrieve the IP address, please make sure you are connected to the internet`
 		);
 	});
 
 kToF = kelvinTemp => {
-	return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "&#8457;";
+	return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "℉";
 };
 
-kToC = K => {
-	return K - 273.15;
+kToC = kelvinTemp => {
+	return Math.round(kelvinTemp - 273.15) + "℃";
 };
 
 capitalizeEachWord = str => {
@@ -45,12 +46,24 @@ capitalizeEachWord = str => {
 		.join(" ");
 };
 
-displayToDom = (className, data) => {
-	return (document.getElementsByClassName(className)[0].innerHTML = data);
+displayToDom = (idName, data) => {
+	return (document.getElementById(idName).innerHTML = data);
 };
 
 renderImageToDom = (imgName, icon) => {
 	return (document.querySelector(
 		`img[name="${imgName}"]`
 	).src = `http://openweathermap.org/img/w/${icon}.png`);
+};
+
+addClickEvent = (idName, fahrenheitConverter, celciusConverter) => {
+	document.getElementById(idName).addEventListener("click", function(event) {
+		let splitIt = document.getElementById(idName).textContent.split("");
+		let last = splitIt[splitIt.length - 1];
+		if (last === "℉") {
+			displayToDom(idName, celciusConverter);
+		} else if (last === "℃") {
+			displayToDom(idName, fahrenheitConverter);
+		}
+	});
 };
