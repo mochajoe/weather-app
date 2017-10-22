@@ -1,5 +1,5 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
-let city, country, latitude, longitude;
+let openWeatherIcon = "http://openweathermap.org/img/w/";
 
 fetch(`${weatherApi}ip`)
 	.then(response => {
