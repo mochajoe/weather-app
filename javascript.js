@@ -1,6 +1,8 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
 let openWeatherIcon = "http://openweathermap.org/img/w/";
 
+
+
 fetch(`${weatherApi}ip`)
 	.then(response => {
 		return response.json();
@@ -16,10 +18,13 @@ fetch(`${weatherApi}ip`)
 				return response.json();
 			})
 			.then(data => {
-				let kelvinTemp = data.main.temp;
-				let condition = data.weather[0].description;
+				kelvinTemp = data.main.temp;
+				condition = data.weather[0].description;
+				icon = data.weather[0].icon;
 				displayToDom("status", kToF(kelvinTemp));
 				displayToDom("condition", capitalizeEachWord(condition));
+				renderImageToDom("icon",icon);
+
 			});
 	});
 
@@ -37,3 +42,7 @@ capitalizeEachWord = str => {
 displayToDom = (className, data) => {
 	return (document.getElementsByClassName(className)[0].innerHTML = data);
 };
+
+renderImageToDom = (imgName, icon) => {
+	return document.querySelector(`img[name="${imgName}"]`).src = `http://openweathermap.org/img/w/${icon}.png`;
+}
