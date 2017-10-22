@@ -1,38 +1,35 @@
 .container {
-  width: 95vw%;
-  height: 95vh;
-  text-align: center;
-  border: 10px solid black;
-  transition: opacity 0.5s linear;
+	width: 95vw%;
+	height: 95vh;
+	text-align: center;
+	border: 10px solid black;
+}
+
+#locationText {
+	margin-top: 13%;
+	position: relative;
 }
 
 #location {
-  margin-top: 15%;
-  font-size: 2em;
-}
-
-#currentCondition: {
-  margin-top: 15%;
-  font-size: 0.7em;
+	font-size: 2em;
 }
 
 #temp {
-  font-size: 4em;
-  cursor: pointer;
-  color: blue;
+	font-size: 4em;
+	cursor: pointer;
+	color: blue;
 }
 
 #temp:hover {
-  text-decoration: none;
-  text-shadow: 1px 1px 1px #555;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #555;
 }
 
 #icon img {
-  max-width: 300px;
-  width: 15%;
+	max-width: 300px;
+	width: 15%;
 }
 
 #condition {
-  font: normal normal 4em;
+	font: normal normal 4em;
 }
-

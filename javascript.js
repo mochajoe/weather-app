@@ -55,6 +55,8 @@ displayIt = () => {
 					kelvinTemp = data.main.temp;
 					condition = data.weather[0].description;
 					icon = data.weather[0].icon;
+					let currentConditionsFor = "Current conditions for:";
+					displayToDom("locationText", currentConditionsFor);
 					displayToDom("location", city);
 					displayToDom("temp", kToF(kelvinTemp));
 					displayToDom(
@@ -72,10 +74,5 @@ displayIt = () => {
 			);
 		});
 };
-
-if (!displayIt()) {
-	console.log("loading");
-	displayIt();
-}
 
 displayIt();
