@@ -1,8 +1,5 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
 
-
-
-
 fetch(`${weatherApi}ip`)
 	.then(response => {
 		return response.json();
@@ -21,21 +18,25 @@ fetch(`${weatherApi}ip`)
 				kelvinTemp = data.main.temp;
 				condition = data.weather[0].description;
 				icon = data.weather[0].icon;
-				displayToDom("status", kToF(kelvinTemp));
+				displayToDom("temp", kToF(kelvinTemp));
 				displayToDom("condition", capitalizeEachWord(condition));
-				renderImageToDom("icon",icon);
-
+				renderImageToDom("icon", icon);
 			});
+	})
+	.catch(function(err) {
+		displayToDom(
+			"condition",
+			"Sorry it looks like there is an error, The Application was not able to retrieve the IP address, please notify ....."
+		);
 	});
 
 kToF = kelvinTemp => {
 	return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "&#8457;";
 };
 
-kToC = (K) => {
-	return K-273.15
-}
-
+kToC = K => {
+	return K - 273.15;
+};
 
 capitalizeEachWord = str => {
 	return str
@@ -49,5 +50,7 @@ displayToDom = (className, data) => {
 };
 
 renderImageToDom = (imgName, icon) => {
-	return document.querySelector(`img[name="${imgName}"]`).src = `http://openweathermap.org/img/w/${icon}.png`;
-}
+	return (document.querySelector(
+		`img[name="${imgName}"]`
+	).src = `http://openweathermap.org/img/w/${icon}.png`);
+};
