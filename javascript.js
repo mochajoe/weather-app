@@ -1,5 +1,5 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
-let openWeatherIcon = "http://openweathermap.org/img/w/";
+
 
 
 
@@ -28,9 +28,14 @@ fetch(`${weatherApi}ip`)
 			});
 	});
 
-kToF = fahrenheitTemp => {
-	return parseInt((fahrenheitTemp - 273.15) * 1.8 + 32) + "&#8457;";
+kToF = kelvinTemp => {
+	return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "&#8457;";
 };
+
+kToC = (K) => {
+	return K-273.15
+}
+
 
 capitalizeEachWord = str => {
 	return str
