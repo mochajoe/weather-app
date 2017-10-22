@@ -11,9 +11,8 @@
   font-size: 2em;
 }
 
-#location:before {
-  content: " Current Conditions For:";
-  display: block;
+#currentCondition: {
+  margin-top: 15%;
   font-size: 0.7em;
 }
 
@@ -34,6 +33,6 @@
 }
 
 #condition {
-  font: normal normal 1.5em/1 "Arial", sans-serif;
-  text-transform: uppercase;
+  font: normal normal 4em;
 }
+
