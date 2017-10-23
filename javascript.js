@@ -52,6 +52,7 @@ getCityLatitudeLongitutde = url => {
       city = data.city;
       latitude = data.location.latitude;
       longitude = data.location.longitude;
+      displayWeatherInfoToDOM(url, latitude, longitude);
     })
     .catch(err => {
       displayToDom(
@@ -127,9 +128,3 @@ const displayIt = () => {
 */
 
 getCityLatitudeLongitutde(weatherApi);
-
-document.addEventListener("DOMContentLoaded", function() {
-  // Handler when the DOM is fully loaded
-  console.log(city);
-});
-console.log(city);
