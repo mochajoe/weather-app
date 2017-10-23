@@ -1,5 +1,6 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
 let city, latitude, longitude;
+let locationObj = {};
 
 const kToF = kelvinTemp => {
   return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "℉";
@@ -49,10 +50,10 @@ getCityLatitudeLongitutde = url => {
       return response.json();
     })
     .then(data => {
-      city = data.city;
-      latitude = data.location.latitude;
-      longitude = data.location.longitude;
-      displayWeatherInfoToDOM(url, latitude, longitude);
+      locationObj.city = data.city;
+      locationObj.latitude = data.location.latitude;
+      locationObj.longitude = data.location.longitude;
+      return locationObj;
     })
     .catch(err => {
       displayToDom(
@@ -67,23 +68,8 @@ displayWeatherInfoToDOM = (url, lat, long) => {
     .then(response => {
       return response.json();
     })
-    .then(res => {
-      const kelvinTemp = res.main.temp;
-      const condition = res.weather[0].description;
-      const icon = res.weather[0].icon;
-      const currentConditionsFor = "CURRENT CONDITIONS FOR:";
-      displayToDom("locationText", currentConditionsFor);
-      displayToDom("location", city);
-      displayToDom("temp", kToF(kelvinTemp));
-      displayToDom("condition", capitalizeEachFirstLetterOfEachWord(condition));
-      renderIconToDom("icon", icon);
-      toggleTempUnits("temp", kToF(kelvinTemp), kToC(kelvinTemp));
-    })
-    .catch(err => {
-      displayToDom(
-        "weather",
-        `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the weather condition.`
-      );
+    .then(data => {
+      console.log(data);
     });
 };
 
@@ -127,4 +113,10 @@ const displayIt = () => {
 
 */
 
-getCityLatitudeLongitutde(weatherApi);
+getCityLatitudeLongitutde(weatherApi).then(function() {
+  displayWeatherInfoToDOM(
+    weatherApi,
+    locationObj.latitude,
+    locationObj.longitude
+  );
+});
