@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha Tests</title>
+    <link rel="stylesheet" href="node_modules/mocha/mocha.css">
+  </head>
+    <div id="test" style="display: none;"></div>
+    <img name="icon" style="display: none;"/>
+    <div id="fType" style="display: none;">℉</div>
+    <div id="cType" style="display: none;">℃</div>
+  <body>
+    <div id="mocha"></div>
+    <script src="node_modules/mocha/mocha.js"></script>
+    <script src="node_modules/chai/chai.js"></script>
+    <script>mocha.setup('bdd')</script>
+
+
+    <script src="test/test.js"></script>
+    <script src="javascript.js"></script>
+
+    <script>
+      mocha.run();
+    </script>
+  </body>
+</html>
