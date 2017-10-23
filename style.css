@@ -2,11 +2,15 @@
   width: 95vw%;
   height: 95vh;
   text-align: center;
-  border: 10px solid black;
+  background-color: black;
+  border: 30px solid white;
+  color: white;
+  font-family: "Lato", sans-serif;
 }
 
 #locationText {
   margin-top: 13%;
+  margin-bottom: 20px;
   position: relative;
 }
 
@@ -15,9 +19,10 @@
 }
 
 #temp {
+  margin-top: 20px;
   font-size: 4em;
   cursor: pointer;
-  color: blue;
+  color: #71db71;
 }
 
 #temp:hover {
@@ -31,5 +36,5 @@
 }
 
 #condition {
-  font: normal normal 4em;
+  font-size: 1.3em;
 }

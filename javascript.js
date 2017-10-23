@@ -1,17 +1,17 @@
-const kToF = (kelvinTemp) => {
-  return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + '℉';
+const kToF = kelvinTemp => {
+  return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "℉";
 };
 
-const kToC = (kelvinTemp) => {
-  return Math.round(kelvinTemp - 273.15) + '℃';
+const kToC = kelvinTemp => {
+  return Math.round(kelvinTemp - 273.15) + "℃";
 };
 
-const capitalizeEachFirstLetterOfEachWord = (str) => {
+const capitalizeEachFirstLetterOfEachWord = str => {
   return str
     .toLowerCase()
-    .split(' ')
+    .split(" ")
     .map(word => word.toUpperCase()[0] + word.slice(1))
-    .join(' ');
+    .join(" ");
 };
 
 const displayToDom = (idName, data) => {
@@ -25,56 +25,56 @@ const renderIconToDom = (imgName, icon) => {
 };
 
 const addClickEvent = (idName, fahrenheitConverter, celciusConverter) => {
-  document.getElementById(idName).addEventListener('click', () => {
-    const splitIt = document.getElementById(idName).textContent.split('');
+  document.getElementById(idName).addEventListener("click", () => {
+    const splitIt = document.getElementById(idName).textContent.split("");
     const last = splitIt[splitIt.length - 1];
-    if (last === '℉') {
+    if (last === "℉") {
       displayToDom(idName, celciusConverter);
-    } else if (last === '℃') {
+    } else if (last === "℃") {
       displayToDom(idName, fahrenheitConverter);
     }
   });
 };
 
 const displayIt = () => {
-  const weatherApi = 'https://weathersync.herokuapp.com/';
+  const weatherApi = "https://weathersync.herokuapp.com/";
   fetch(`${weatherApi}ip`)
-    .then((response) => {
+    .then(response => {
       return response.json();
     })
-    .then((data) => {
+    .then(data => {
       const city = data.city;
       const latitude = data.location.latitude;
       const longitude = data.location.longitude;
       fetch(`${weatherApi}weather/${latitude},${longitude}`)
-        .then((response) => {
+        .then(response => {
           return response.json();
         })
-        .then((res) => {
+        .then(res => {
           const kelvinTemp = res.main.temp;
           const condition = res.weather[0].description;
           const icon = res.weather[0].icon;
-          const currentConditionsFor = 'Current conditions for:';
-          displayToDom('locationText', currentConditionsFor);
-          displayToDom('location', city);
-          displayToDom('temp', kToF(kelvinTemp));
+          const currentConditionsFor = "CURRENT CONDITIONS FOR:";
+          displayToDom("locationText", currentConditionsFor);
+          displayToDom("location", city);
+          displayToDom("temp", kToF(kelvinTemp));
           displayToDom(
-            'condition',
-            capitalizeEachFirstLetterOfEachWord(condition),
+            "condition",
+            capitalizeEachFirstLetterOfEachWord(condition)
           );
-          renderIconToDom('icon', icon);
-          addClickEvent('temp', kToF(kelvinTemp), kToC(kelvinTemp));
+          renderIconToDom("icon", icon);
+          addClickEvent("temp", kToF(kelvinTemp), kToC(kelvinTemp));
         })
-        .catch((err) => {
+        .catch(err => {
           displayToDom(
-            'weather',
+            "weather",
             `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the weather condition.`
           );
         });
     })
-    .catch((err) => {
+    .catch(err => {
       displayToDom(
-        'location',
+        "location",
         `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the IP address, please make sure you are connected to the internet`
       );
     });
