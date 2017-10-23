@@ -1,7 +1,8 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "description": "This is a placeholder for some text I am going to write about the weather app!",
+  "description":
+    "This is a placeholder for some text I am going to write about the weather app!",
   "main": "javascript.js",
   "directories": {
     "test": "test"
@@ -13,10 +14,7 @@
     "type": "git",
     "url": "git+https://github.com/mochajoe/weather-app.git"
   },
-  "keywords": [
-    "weather",
-    "app"
-  ],
+  "keywords": ["weather", "app"],
   "author": "Anthony Nguyen",
   "license": "ISC",
   "bugs": {
@@ -24,6 +22,7 @@
   },
   "homepage": "https://github.com/mochajoe/weather-app#readme",
   "dependencies": {
-    "node-fetch": "^1.7.3"
+    "chai": "^4.1.2",
+    "mocha": "^4.0.1"
   }
 }
