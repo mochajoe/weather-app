@@ -71,4 +71,36 @@ describe("Unit Tests!", function() {
       assert.equal(document.getElementById("cType").innerHTML, "80℉");
     });
   });
+
+  describe("weatherUrl", function() {
+    it("should return a weatherURL given the latitude and longitude", function() {
+      locationObj = {
+        latitude: 34.0514,
+        longitude: -118.1456
+      };
+      assert.equal(
+        weatherUrl(locationObj),
+        "https://weathersync.herokuapp.com/weather/34.0514,-118.1456"
+      );
+    });
+    it("should return a weatherURL given the latitude and longitude", function() {
+      locationObj = {
+        latitude: 40.73061,
+        longitude: -73.935242
+      };
+      assert.equal(
+        weatherUrl(locationObj),
+        "https://weathersync.herokuapp.com/weather/40.73061,-73.935242"
+      );
+    });
+  });
+
+  describe("weatherIp", function() {
+    it("should render out https://weathersync.herokuapp.com/ip", function() {
+      assert.equal(
+        weatherIp(weatherApi),
+        "https://weathersync.herokuapp.com/ip"
+      );
+    });
+  });
 });

@@ -44,16 +44,24 @@ const checkIfForC = (idName, fahrenheitConverter, celciusConverter) => {
   }
 };
 
+const weatherIp = url => {
+  return `${url}ip`;
+};
+
+const weatherUrl = locationObj => {
+  return `${weatherApi}weather/${locationObj.latitude},${locationObj.longitude}`;
+};
+
 const displayIt = () => {
-  fetch(`${weatherApi}ip`)
+  fetch(weatherIp(weatherApi))
     .then(response => {
       return response.json();
     })
     .then(data => {
       locationObj.city = data.city;
-      latitude = data.location.latitude;
-      longitude = data.location.longitude;
-      fetch(`${weatherApi}weather/${latitude},${longitude}`)
+      locationObj.latitude = data.location.latitude;
+      locationObj.longitude = data.location.longitude;
+      fetch(weatherUrl(locationObj))
         .then(response => {
           return response.json();
         })
