@@ -1,6 +1,6 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
-let city, latitude, longitude;
 let locationObj = {};
+let weatherData = {};
 
 const kToF = kelvinTemp => {
   return parseInt((kelvinTemp - 273.15) * 1.8 + 32) + "℉";
@@ -44,43 +44,13 @@ const checkIfForC = (idName, fahrenheitConverter, celciusConverter) => {
   }
 };
 
-getCityLatitudeLongitutde = url => {
-  fetch(`${url}ip`)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      locationObj.city = data.city;
-      locationObj.latitude = data.location.latitude;
-      locationObj.longitude = data.location.longitude;
-      return locationObj;
-    })
-    .catch(err => {
-      displayToDom(
-        "location",
-        `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the IP address, please make sure you are connected to the internet`
-      );
-    });
-};
-
-displayWeatherInfoToDOM = (url, lat, long) => {
-  fetch(`${url}weather/${lat},${long}`)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-    });
-};
-
-/*
 const displayIt = () => {
   fetch(`${weatherApi}ip`)
     .then(response => {
       return response.json();
     })
     .then(data => {
-      city = data.city;
+      locationObj.city = data.city;
       latitude = data.location.latitude;
       longitude = data.location.longitude;
       fetch(`${weatherApi}weather/${latitude},${longitude}`)
@@ -88,19 +58,23 @@ const displayIt = () => {
           return response.json();
         })
         .then(res => {
-          const kelvinTemp = res.main.temp;
-          const condition = res.weather[0].description;
-          const icon = res.weather[0].icon;
-          const currentConditionsFor = "CURRENT CONDITIONS FOR:";
-          displayToDom("locationText", currentConditionsFor);
-          displayToDom("location", city);
-          displayToDom("temp", kToF(kelvinTemp));
+          weatherData.kelvinTemp = res.main.temp;
+          weatherData.condition = res.weather[0].description;
+          weatherData.icon = res.weather[0].icon;
+          weatherData.currentConditionsFor = "CURRENT CONDITIONS FOR:";
+          displayToDom("locationText", weatherData.currentConditionsFor);
+          displayToDom("location", locationObj.city);
+          displayToDom("temp", kToF(weatherData.kelvinTemp));
           displayToDom(
             "condition",
-            capitalizeEachFirstLetterOfEachWord(condition)
+            capitalizeEachFirstLetterOfEachWord(weatherData.condition)
           );
-          renderIconToDom("icon", icon);
-          toggleTempUnits("temp", kToF(kelvinTemp), kToC(kelvinTemp));
+          renderIconToDom("icon", weatherData.icon);
+          toggleTempUnits(
+            "temp",
+            kToF(weatherData.kelvinTemp),
+            kToC(weatherData.kelvinTemp)
+          );
         })
         .catch(err => {
           displayToDom(
@@ -111,12 +85,4 @@ const displayIt = () => {
     });
 };
 
-*/
-
-getCityLatitudeLongitutde(weatherApi).then(function() {
-  displayWeatherInfoToDOM(
-    weatherApi,
-    locationObj.latitude,
-    locationObj.longitude
-  );
-});
+displayIt();
