@@ -1,4 +1,7 @@
 var assert = chai.assert;
+var should = chai.should();
+var expect = chai.expect;
+
 describe("Unit Tests!", function() {
   describe("kToF", function() {
     it("should convert positive integer Kelvin units To Fahrenheit", function() {
@@ -101,6 +104,21 @@ describe("Unit Tests!", function() {
         weatherIp(weatherApi),
         "https://weathersync.herokuapp.com/ip"
       );
+    });
+  });
+
+  describe("getCity", function() {
+    it("should have the property latitude in locationObj", function() {
+      expect(locationObj).to.have.property("latitude");
+    });
+    it("should have the property longitude in locationObj", function() {
+      expect(locationObj).to.have.property("longitude");
+    });
+  });
+
+  describe("getLocation", function() {
+    it("should have the property latitude in locationObj", function() {
+      assert.equal(getLocation(locationObj), "sdfdsf");
     });
   });
 });

@@ -1,5 +1,4 @@
 let weatherApi = "https://weathersync.herokuapp.com/";
-let locationObj = {};
 let weatherData = {};
 
 const kToF = kelvinTemp => {
@@ -48,49 +47,96 @@ const weatherIp = url => {
   return `${url}ip`;
 };
 
-const weatherUrl = locationObj => {
-  return `${weatherApi}weather/${locationObj.latitude},${locationObj.longitude}`;
+const weatherUrl = obj => {
+  return `${weatherApi}weather/${obj.latitude},${obj.longitude}`;
 };
 
-const displayIt = () => {
+const getCity = () => {
   fetch(weatherIp(weatherApi))
     .then(response => {
       return response.json();
     })
     .then(data => {
+      let locationObj;
       locationObj.city = data.city;
       locationObj.latitude = data.location.latitude;
       locationObj.longitude = data.location.longitude;
-      fetch(weatherUrl(locationObj))
-        .then(response => {
-          return response.json();
-        })
-        .then(res => {
-          weatherData.kelvinTemp = res.main.temp;
-          weatherData.condition = res.weather[0].description;
-          weatherData.icon = res.weather[0].icon;
-          weatherData.currentConditionsFor = "CURRENT CONDITIONS FOR:";
-          displayToDom("locationText", weatherData.currentConditionsFor);
-          displayToDom("location", locationObj.city);
-          displayToDom("temp", kToF(weatherData.kelvinTemp));
-          displayToDom(
-            "condition",
-            capitalizeEachFirstLetterOfEachWord(weatherData.condition)
-          );
-          renderIconToDom("icon", weatherData.icon);
-          toggleTempUnits(
-            "temp",
-            kToF(weatherData.kelvinTemp),
-            kToC(weatherData.kelvinTemp)
-          );
-        })
-        .catch(err => {
-          displayToDom(
-            "weather",
-            `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the weather condition.`
-          );
-        });
+      return locationObj;
     });
 };
 
-displayIt();
+const getLocation = obj => {
+  fetch(weatherUrl(obj))
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      weatherData.kelvinTemp = data.main.temp;
+      weatherData.condition = data.weather[0].description;
+      weatherData.icon = data.weather[0].icon;
+      weatherData.currentConditionsFor = "CURRENT CONDITIONS FOR:";
+    });
+};
+
+const renderToDom = (city, weatherObj) => {
+  displayToDom("locationText", weatherData.currentConditionsFor);
+  displayToDom("location", locationObj.city);
+  displayToDom("temp", kToF(weatherData.kelvinTemp));
+  displayToDom(
+    "condition",
+    capitalizeEachFirstLetterOfEachWord(weatherData.condition)
+  );
+  renderIconToDom("icon", weatherData.icon);
+  toggleTempUnits(
+    "temp",
+    kToF(weatherData.kelvinTemp),
+    kToC(weatherData.kelvinTemp)
+  );
+};
+
+// const displayIt = () => {
+//   fetch(weatherIp(weatherApi))
+//     .then(response => {
+//       return response.json();
+//     })
+//     .then(data => {
+//       locationObj.city = data.city;
+//       locationObj.latitude = data.location.latitude;
+//       locationObj.longitude = data.location.longitude;
+//       fetch(weatherUrl(locationObj))
+//         .then(response => {
+//           return response.json();
+//         })
+//         .then(res => {
+//           weatherData.kelvinTemp = res.main.temp;
+//           weatherData.condition = res.weather[0].description;
+//           weatherData.icon = res.weather[0].icon;
+//           weatherData.currentConditionsFor = "CURRENT CONDITIONS FOR:";
+//           displayToDom("locationText", weatherData.currentConditionsFor);
+//           displayToDom("location", locationObj.city);
+//           displayToDom("temp", kToF(weatherData.kelvinTemp));
+//           displayToDom(
+//             "condition",
+//             capitalizeEachFirstLetterOfEachWord(weatherData.condition)
+//           );
+//           renderIconToDom("icon", weatherData.icon);
+//           toggleTempUnits(
+//             "temp",
+//             kToF(weatherData.kelvinTemp),
+//             kToC(weatherData.kelvinTemp)
+//           );
+//         })
+//         .catch(err => {
+//           displayToDom(
+//             "weather",
+//             `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the weather condition.`
+//           );
+//         });
+//     });
+// };
+
+// displayIt();
+
+const promise = new Promise(resolve => {
+  resolve(getCity());
+});
