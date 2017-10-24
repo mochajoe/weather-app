@@ -78,7 +78,6 @@ const getLocation = obj => {
       weatherData.condition = data.weather[0].description;
       weatherData.icon = data.weather[0].icon;
       weatherData.currentConditionsFor = "CURRENT CONDITIONS FOR:";
-      weatherData.name = data.name;
       renderToDom(locationObj.city, weatherData);
     })
     .catch(err => {
