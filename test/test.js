@@ -77,22 +77,22 @@ describe("Unit Tests!", function() {
 
   describe("weatherUrl", function() {
     it("should return a weatherURL given the latitude and longitude", function() {
-      locationObj = {
+      testObj = {
         latitude: 34.0514,
         longitude: -118.1456
       };
       assert.equal(
-        weatherUrl(locationObj),
+        weatherUrl(testObj),
         "https://weathersync.herokuapp.com/weather/34.0514,-118.1456"
       );
     });
     it("should return a weatherURL given the latitude and longitude", function() {
-      locationObj = {
+      testObj = {
         latitude: 40.73061,
         longitude: -73.935242
       };
       assert.equal(
-        weatherUrl(locationObj),
+        weatherUrl(testObj),
         "https://weathersync.herokuapp.com/weather/40.73061,-73.935242"
       );
     });
@@ -108,17 +108,14 @@ describe("Unit Tests!", function() {
   });
 
   describe("getCity", function() {
-    it("should have the property latitude in locationObj", function() {
-      expect(locationObj).to.have.property("latitude");
+    it("should check if locationObj is an Object", function() {
+      assert.typeOf(locationObj, "object");
     });
-    it("should have the property longitude in locationObj", function() {
-      expect(locationObj).to.have.property("longitude");
-    });
-  });
 
-  describe("getLocation", function() {
-    it("should have the property latitude in locationObj", function() {
-      assert.equal(getLocation(locationObj), "sdfdsf");
+    it("should check if locationObj.city returns a string", function() {
+      setTimeout(() => {
+        assert.typeOf(locationObj.city, "string");
+      }, 2000);
     });
   });
 });

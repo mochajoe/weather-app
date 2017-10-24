@@ -64,10 +64,7 @@ const getCity = () => {
       getLocation(locationObj);
     })
     .catch(err => {
-      displayToDom(
-        "weather",
-        `${err}. Sorry it looks like there is an error, The Application was not able to retrieve the weather condition.`
-      );
+      displayToDom("weather", `Sorry it looks like there is an error`);
     });
 };
 
@@ -81,6 +78,7 @@ const getLocation = obj => {
       weatherData.condition = data.weather[0].description;
       weatherData.icon = data.weather[0].icon;
       weatherData.currentConditionsFor = "CURRENT CONDITIONS FOR:";
+      weatherData.name = data.name;
       renderToDom(locationObj.city, weatherData);
     })
     .catch(err => {

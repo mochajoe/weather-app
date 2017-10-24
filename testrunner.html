@@ -8,16 +8,17 @@
     <img name="icon" style="display: none;"/>
     <div id="fType" style="display: none;">℉</div>
     <div id="cType" style="display: none;">℃</div>
+    <div id="weather" style="display: none;">sdfsdf</div>
   <body>
     <div id="mocha"></div>
     <script src="node_modules/mocha/mocha.js"></script>
     <script src="node_modules/chai/chai.js"></script>
     <script>mocha.setup('bdd')</script>
 
-
-    <script src="test/test.js"></script>
     <script src="javascript.js"></script>
-
+ <script src="test/test.js">
+  setTimeout(())
+ </script>
     <script>
       mocha.run();
     </script>
