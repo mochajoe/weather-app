@@ -59,6 +59,7 @@ const getCity = () => {
     })
     .then(data => {
       locationObj.city = data.city;
+      locationObj.town = data.town || null;
       locationObj.latitude = data.location.latitude;
       locationObj.longitude = data.location.longitude;
       getLocation(locationObj);
