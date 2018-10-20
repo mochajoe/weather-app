@@ -1,9 +1,9 @@
 .container {
-  width: 95vw%;
+  width: 90vw%;
   height: 95vh;
-  text-align: center;
-  background-color: black;
-  border: 30px solid white;
+  text-align: left;
+  background-color: blue;
+  border: 30px solid red;
   color: white;
   font-family: "Lato", sans-serif;
 }
